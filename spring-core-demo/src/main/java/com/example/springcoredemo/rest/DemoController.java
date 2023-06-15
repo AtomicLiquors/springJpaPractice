@@ -10,11 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class DemoController {
     //private field
     private Coach myCoach;
+    private Coach anotherCoach;
 
     @Autowired
-    public void setCoach(@Qualifier("cricketCoach")Coach theCoach){
+    public void setCoach(@Qualifier("cricketCoach")Coach theCoach, @Qualifier("cricketCoach") Coach theAnotherCoach){
         System.out.println("In constructor : "+ getClass().getSimpleName());
         myCoach  = theCoach;
+        anotherCoach = theAnotherCoach;
+
+
     }
     /*@Autowired
     public DemoController(Coach theCoach){
