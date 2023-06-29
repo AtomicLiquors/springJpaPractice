@@ -27,12 +27,13 @@ public class JpacruddemoApplication {
 	public CommandLineRunner commandLineRunner (StudentDAO studentDAO){
 		return runner -> {
 			//createStudent(studentDAO);
+			createMultipleStudent(studentDAO);
 			//readStudent(studentDAO);
 			//queryForStudents(studentDAO);
 			//queryForStudentsByLastName(studentDAO);
 			//updateStudent(studentDAO);
 			//deleteStudent(studentDAO );
-			deleteAllStudents(studentDAO);
+			//deleteAllStudents(studentDAO);
 		};
 	}
 
