@@ -31,10 +31,16 @@ public class JpacruddemoApplication {
 			//queryForStudents(studentDAO);
 			//queryForStudentsByLastName(studentDAO);
 			//updateStudent(studentDAO);
-			deleteStudent(studentDAO );
+			//deleteStudent(studentDAO );
+			deleteAllStudents(studentDAO);
 		};
 	}
 
+	private void deleteAllStudents(StudentDAO studentDAO){
+		System.out.println("Deleting all students");
+		int numRowsDeleted = studentDAO.deleteAll();
+		System.out.println("Deleted row count : " + numRowsDeleted);
+	}
 
 	private void deleteStudent(StudentDAO studentDAO){
 		int studentId = 5;
