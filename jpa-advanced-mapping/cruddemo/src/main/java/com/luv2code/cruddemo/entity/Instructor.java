@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Instructor {
     //set up mapping to instructor detail entity
     //@OneToOne(cascade = CascadeType.ALL)
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "instructor_detail_id")
     private InstructorDetail instructorDetail;
 

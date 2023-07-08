@@ -19,22 +19,40 @@ public class CruddemoApplication {
 	public CommandLineRunner commandLineRunner(AppDAO appDAO){
 		//Executed after the Spring Beans have been loaded.
 		return runner -> {
-//			createInstructor(appDAO);
+			//createInstructor(appDAO);
 			//findInstructor(appDAO);
-			deleteInstructor(appDAO);
+			//deleteInstructor(appDAO);
+			deleteInstructorDetail(appDAO);
+			//findInstructorDetail(appDAO);
 		};
 	}
 
-private void deleteInstructor(AppDAO appDAO)	{
-		int theId = 2;
-	System.out.println("Deleting instructor id: " + theId);
-	appDAO.deleteInstructor(theId);
-	System.out.println("Deleted!");
-}
-private void findInstructor(AppDAO appDAO) {
 
-	int theId = 1;
-	System.out.println("Finding instructor id : " + theId);
+	private void deleteInstructorDetail(AppDAO appDAO){
+		int theId = 3;
+		System.out.println("Deleting detail : " + theId);
+		appDAO.deleteInstructorDetailById(theId);
+		System.out.println("Success!");
+	};
+
+	private void findInstructorDetail(AppDAO appDAO){
+		int theId = 1;
+		InstructorDetail tempInstructorDetail = appDAO.findInstructorDetail(theId);
+		Instructor tempInstructor = tempInstructorDetail.getInstructor();
+
+		System.out.println("associated instructor : " + tempInstructor);
+	}
+
+	private void deleteInstructor(AppDAO appDAO)	{
+		int theId = 2;
+		System.out.println("Deleting instructor id: " + theId);
+		appDAO.deleteInstructor(theId);
+		System.out.println("Deleted!");
+	}
+	private void findInstructor(AppDAO appDAO) {
+
+		int theId = 1;
+		System.out.println("Finding instructor id : " + theId);
 	Instructor tempInstructor = appDAO.findInstructorById(theId);
 	System.out.println("tempInstructor: " + tempInstructor);
 	System.out.println("the associate instructorDetail only : " + tempInstructor.getInstructorDetail());
