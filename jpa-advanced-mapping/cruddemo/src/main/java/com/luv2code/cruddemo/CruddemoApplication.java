@@ -1,6 +1,7 @@
 package com.luv2code.cruddemo;
 
 import com.luv2code.cruddemo.dao.AppDAO;
+import com.luv2code.cruddemo.entity.Course;
 import com.luv2code.cruddemo.entity.Instructor;
 import com.luv2code.cruddemo.entity.InstructorDetail;
 import org.hibernate.boot.jaxb.hbm.internal.GenerationTimingConverter;
@@ -22,11 +23,33 @@ public class CruddemoApplication {
 			//createInstructor(appDAO);
 			//findInstructor(appDAO);
 			//deleteInstructor(appDAO);
-			deleteInstructorDetail(appDAO);
+			//deleteInstructorDetail(appDAO);
 			//findInstructorDetail(appDAO);
+			createInstructorWithCourses(appDAO);
 		};
 	}
 
+	private void createInstructorWithCourses(AppDAO appDAO){
+		Instructor tempInstructor = new Instructor("Demian", "Brenks", "gyqls@gmail.com");
+
+		InstructorDetail tempInstructorDetail =
+				new InstructorDetail("http://www.hacker.com/youtube","Hakcer for fun!!!");
+
+		tempInstructor.setInstructorDetail(tempInstructorDetail);
+
+		//create some courses
+		Course tempCourse1 = new Course("Air Guitar - The ultimate guide");
+		Course tempCourse2 = new Course("Seth Riggs Vocal Training");
+
+		tempInstructor.add(tempCourse1);
+		tempInstructor.add(tempCourse2);
+
+		System.out.println("Saving instructor:" + tempInstructor);
+		System.out.println("Courses : " + tempInstructor.getCourses());
+		appDAO.save(tempInstructor);
+
+		System.out.println("Complete!");
+	}
 
 	private void deleteInstructorDetail(AppDAO appDAO){
 		int theId = 3;
