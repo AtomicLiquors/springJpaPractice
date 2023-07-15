@@ -4,6 +4,7 @@ import com.luv2code.cruddemo.dao.AppDAO;
 import com.luv2code.cruddemo.entity.Course;
 import com.luv2code.cruddemo.entity.Instructor;
 import com.luv2code.cruddemo.entity.InstructorDetail;
+import com.luv2code.cruddemo.entity.Review;
 import org.hibernate.boot.jaxb.hbm.internal.GenerationTimingConverter;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,22 +21,34 @@ public class CruddemoApplication {
 	}
   	@Bean
 	public CommandLineRunner commandLineRunner(AppDAO appDAO){
-		//Executed after the Spring Beans have been loaded.
 		return runner -> {
-			//createInstructor(appDAO);
-			//findInstructor(appDAO);
-			//deleteInstructor(appDAO);
-			//deleteInstructorDetail(appDAO);
-			//findInstructorDetail(appDAO);
-			//createInstructorWithCourses(appDAO);
-			//findInstructorWithCourses(appDAO);
-			//findCoursesForInstructor(appDAO);
-			//findInstructorWithCoursesJoinFetch(appDAO);
-			//updateInstructor(appDAO);
-//			updateCourse(appDAO);
-
-			deleteCourse(appDAO);
+			//createCourseAndReviews(appDAO);
+			retrieveCourseAndReviews(appDAO);
 		};
+	}
+
+	private void retrieveCourseAndReviews(AppDAO appDAO) {
+		int theId = 10;
+		Course tempCourse = appDAO.findCourseAndReviewsByCourseId(theId);
+		System.out.println(tempCourse);
+		System.out.println(tempCourse.getReviews());
+		System.out.println("Done!");
+	}
+
+
+	private void createCourseAndReviews(AppDAO appDAO) {
+		Course tempCourse = new Course("Super Mario 3 - Unlimited Coins Trick");
+		tempCourse.addReview(new Review("this is a complete clickbait lmao"));
+		tempCourse.addReview(new Review("damn this is legit"));
+		tempCourse.addReview(new Review("only a dumb find this difficult, quit complaining you pps"));
+
+		System.out.println("saving...");
+		System.out.println(tempCourse);
+		System.out.println(tempCourse.getReviews());
+
+		appDAO.save(tempCourse);
+		System.out.println("saved!");
+
 	}
 
 	private void deleteCourse(AppDAO appDAO) {

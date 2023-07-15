@@ -3,6 +3,9 @@ package com.luv2code.cruddemo.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name="course")
 @Data
@@ -18,11 +21,22 @@ public class Course {
     @JoinColumn(name="instructor_id")
     private Instructor instructor;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="course_id")
+    private List<Review> reviews;
+
     public Course(){
 
     }
     public Course(String title){
         this.title = title;
+    }
+
+    public void addReview(Review theReview){
+        if(reviews == null){
+            reviews = new ArrayList<>();
+        }
+        reviews.add(theReview);
     }
 
     @Override
