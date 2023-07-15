@@ -23,8 +23,15 @@ public class CruddemoApplication {
 	public CommandLineRunner commandLineRunner(AppDAO appDAO){
 		return runner -> {
 			//createCourseAndReviews(appDAO);
-			retrieveCourseAndReviews(appDAO);
+//			retrieveCourseAndReviews(appDAO);
+			deleteCourseAndReviews(appDAO);
 		};
+	}
+
+	private void deleteCourseAndReviews(AppDAO appDAO){
+		int theId = 10;
+		System.out.println("Deleting course id: " + theId);
+		appDAO.deleteCourseById(theId); //cascadeType.ALL에 의해 연관 레코드 연쇄 삭제
 	}
 
 	private void retrieveCourseAndReviews(AppDAO appDAO) {
