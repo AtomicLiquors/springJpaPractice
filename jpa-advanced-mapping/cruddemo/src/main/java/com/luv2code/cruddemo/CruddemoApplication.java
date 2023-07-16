@@ -2,7 +2,6 @@ package com.luv2code.cruddemo;
 
 import com.luv2code.cruddemo.dao.AppDAO;
 import com.luv2code.cruddemo.entity.*;
-import org.hibernate.boot.jaxb.hbm.internal.GenerationTimingConverter;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,8 +19,48 @@ public class CruddemoApplication {
 	public CommandLineRunner commandLineRunner(AppDAO appDAO){
 		return runner -> {
 			//createCourseAndStudents(appDAO);
-			findCourseAndStudents(appDAO);
+			//findCourseAndStudents(appDAO);
+//			findStudentAndCourses(appDAO);
+			//addMoreCoursesForStudents(appDAO);
+			//deleteCourse(appDAO);
+
+			deleteStudent(appDAO);
 		};
+	}
+
+	private void deleteStudent(AppDAO appDAO){
+		int theId = 1;
+		System.out.println("Deleting Student By Id : " + theId);
+
+		appDAO.deleteStudentById(theId);
+		System.out.println("Done!");
+	}
+
+	private void addMoreCoursesForStudents(AppDAO appDAO){
+		int theId = 2;
+		Student tempStudent = appDAO.findStudentAndCoursesByStudentId(theId);
+
+		Course tempCourse1 = new Course("Rubik's Cube Speedrun Quick Guide");
+		Course tempCourse2 = new Course("Unity 3D Game Development");
+
+		tempStudent.addCourse(tempCourse1);
+		tempStudent.addCourse(tempCourse2);
+
+		System.out.println("Updating student : " + tempStudent);
+		System.out.println("Courses : " + tempStudent.getCourses());
+
+		appDAO.update(tempStudent);
+
+		System.out.println("Updated!!");
+	}
+
+	private void findStudentAndCourses(AppDAO appDAO){
+		int theId = 2;
+		Student tempStudent = appDAO.findStudentAndCoursesByStudentId(theId);
+
+		System.out.println("Loaded Student : " + tempStudent);
+		System.out.println("Loaded Courses : " + tempStudent.getCourses());
+		System.out.println("Done!");
 	}
 
 	private void findCourseAndStudents(AppDAO appDAO){
@@ -77,7 +116,8 @@ public class CruddemoApplication {
 	}
 
 	private void deleteCourse(AppDAO appDAO) {
-		int theId = 12;
+
+		int theId = 10;
 		System.out.println("Deleting course id : " + theId);
 		appDAO.deleteCourseById(theId);
 		System.out.println("Done!");
