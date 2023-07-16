@@ -1,10 +1,7 @@
 package com.luv2code.cruddemo;
 
 import com.luv2code.cruddemo.dao.AppDAO;
-import com.luv2code.cruddemo.entity.Course;
-import com.luv2code.cruddemo.entity.Instructor;
-import com.luv2code.cruddemo.entity.InstructorDetail;
-import com.luv2code.cruddemo.entity.Review;
+import com.luv2code.cruddemo.entity.*;
 import org.hibernate.boot.jaxb.hbm.internal.GenerationTimingConverter;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,10 +19,31 @@ public class CruddemoApplication {
   	@Bean
 	public CommandLineRunner commandLineRunner(AppDAO appDAO){
 		return runner -> {
-			//createCourseAndReviews(appDAO);
-//			retrieveCourseAndReviews(appDAO);
-			deleteCourseAndReviews(appDAO);
+			//createCourseAndStudents(appDAO);
+			findCourseAndStudents(appDAO);
 		};
+	}
+
+	private void findCourseAndStudents(AppDAO appDAO){
+		int theId = 10;
+		Course tempCourse = appDAO.findCourseAndStudentsByCourseId(theId);
+		System.out.println("Loaded Course: " + tempCourse);
+		System.out.println("Students: " + tempCourse.getStudents());
+		System.out.println("Done!");
+	};
+
+	private void createCourseAndStudents(AppDAO appDAO) {
+			Course tempCourse = new Course("Batman Origins and Anthology");
+			Student tempStudent1 = new Student("John", "Nash","delusional@harvard.ac");
+			Student tempStudent2 = new Student("Amadeus", "Joe", "totallyawesome@amazon.com");
+
+			tempCourse.addStudent(tempStudent1);
+			tempCourse.addStudent(tempStudent2);
+
+			System.out.println("Saving course : " + tempCourse);
+			System.out.println("Students Enrolled : " + tempCourse.getStudents());
+			appDAO.save(tempCourse);
+			System.out.println("Done!!");
 	}
 
 	private void deleteCourseAndReviews(AppDAO appDAO){
